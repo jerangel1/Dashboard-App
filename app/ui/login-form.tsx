@@ -1,5 +1,4 @@
 'use client';
- 
 import { lusitana } from '@/app/ui/fonts';
 import {
   AtSymbolIcon,
@@ -9,11 +8,11 @@ import {
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { Button } from '@/app/ui/button';
 import { useFormState, useFormStatus } from 'react-dom';
-import { authenticate } from '@/app/lib/actions';
- 
+import { redirect } from 'next/navigation';
+// import { authenticate } from '@/app/lib/actions';
+
 export default function LoginForm() {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
- 
   return (
     <form action={dispatch} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
@@ -78,13 +77,38 @@ export default function LoginForm() {
     </form>
   );
 }
- 
+
 function LoginButton() {
   const { pending } = useFormStatus();
- 
+
+  const handleLoginClick = async () => {
+    try {
+      // Simulación de éxito al hacer clic en el botón de login
+      const result = await authenticate();
+      if (!result) {
+        // Redirigir al dashboard después del inicio de sesión exitoso
+        redirect('../dashboard/(overview)/page.tsx');
+      } else {
+        // Manejar errores de autenticación si es necesario
+        console.error('Login failed:', result);
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  };
+
   return (
-    <Button className="mt-4 w-full" aria-disabled={pending}>
+    <Button className="mt-4 w-full" aria-disabled={pending} onClick={handleLoginClick}>
       Log in <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
     </Button>
   );
+}
+
+async function authenticate(): Promise<undefined> {
+  return new Promise((resolve) => {
+    // Simular autenticación exitosa después de 1 segundo (1000 milisegundos)
+    setTimeout(() => {
+      resolve(undefined);
+    }, 1000);
+  });
 }
