@@ -5,7 +5,20 @@ const {
   revenue,
   users,
 } = require('../app/lib/placeholder-data.js');
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
+// const { hashPassword } = require('../path-to-your-utils/passwordUtils');
+
+// // Compare a password with its hash
+// async function comparePasswords(password, hashedPassword) {
+//   const isMatch = await bcrypt.compare(password, hashedPassword);
+//   return isMatch;
+// }
+
+// module.exports = {
+//   hashPassword,
+//   comparePasswords,
+// };
+
 
 async function seedUsers(client) {
   try {

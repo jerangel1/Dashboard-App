@@ -1,9 +1,16 @@
-import NextAuth from 'next-auth';
+import NextAuth, { NextAuthConfig } from 'next-auth';
 import { authConfig } from './auth.config';
- 
-export default NextAuth(authConfig).auth;
- 
+
+const validatedAuthConfig: NextAuthConfig = {
+  providers: authConfig.providers || [], // Ensure 'providers' is defined
+  pages: authConfig.pages,
+};
+
+export default NextAuth(validatedAuthConfig).auth;
+
 export const config = {
-  // https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
+  // Other configurations
   matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
 };
+
+export { authConfig };

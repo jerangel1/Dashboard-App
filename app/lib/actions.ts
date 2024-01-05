@@ -112,14 +112,12 @@ export async function deleteInvoice(id: string) {
 
 
 //login
-
 export async function authenticate(
   prevState: string | undefined,
   formData: FormData,
 ) {
   try {
-    // Simulación de éxito
-    return null;
+    await signIn('credentials', formData);
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
